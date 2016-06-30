@@ -1,0 +1,38 @@
+############################## Joe's .screenrc ##############################
+ 
+# define a bigger scrollback; default is only 100 lines
+defscrollback 4096
+ 
+term xterm
+ 
+# Set up some more windows-switch keys
+# The default commands include Ctrl+a 5 to select screen 5; this makes Ctrl+a Shift+5 select screen 15.
+bind  ) select 10
+bind  ! select 11
+bind  @ select 12
+bind \# select 13
+bind \$ select 14
+bind  % select 15
+bind \^ select 16
+bind  & select 17
+bind  * select 18
+bind  ) select 19
+ 
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f %t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %Y-%m-%d %{W}%c %{g}]'
+ 
+# ------------------------------------------------------------------------------
+# STARTUP SCREENS
+# ------------------------------------------------------------------------------
+# Open some useful screens
+ 
+# Example of automatically running some programs in windows on screen startup.
+# Use the form: screen [-flag] [window name] [window number] [program to run in window]
+# The -t flag means that the window in which that program is running
+# closes when you exit that program, so if you quit pine
+# window 2 closes.
+ 
+screen bash
+screen -t dest1 1
+screen -t dest2 2
+ 
