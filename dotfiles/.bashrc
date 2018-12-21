@@ -12,8 +12,10 @@ alias lac='ls -al | wc -l'
 alias ldir='ls -al | egrep "^d"'
 alias lah='ls -a | egrep "^\."'
 alias lahc='ls -a | egrep "^\." | wc -l'
+alias lar='ls -altr'
 alias lat='ls -alt'
-alias lr='ls -altr'
+alias ll='ls -l'
+alias lr='ls -ltr'
 alias lsn='ls -al | nms -a'
 alias lss='ls -althrS'
 alias skyron='ssh -p 1100 joe@skyron.ddns.net'
@@ -34,7 +36,10 @@ alias dmacs='emacs --daemon'
 alias now='date "+%Y-%m-%d %H:%M:%S"'
 
 # current dttm:
-alias et='date "+%s"'
+alias etime='date "+%s"'
+
+# 
+alias cdp='pushd'
 
 # detailed ls (ls + which)
 lsw()
@@ -121,6 +126,16 @@ vhead()
     fi
     cmd=`printf "head -%d $1" $count`
     $cmd | vim -
+}
+
+f2p()
+{
+    if [[ -f $1 ]] ; then
+        echo "copying $1 to clipboard"
+        cat $1 | pbcopy
+    else
+        echo "file $1 doesn't exist"
+    fi
 }
 
 mtdir()
