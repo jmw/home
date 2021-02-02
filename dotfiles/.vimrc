@@ -4,6 +4,9 @@ syn on
 set number
 "set relativenumber
 
+" shut up!
+set belloff=all
+
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -11,19 +14,29 @@ set expandtab
 set modelines=2
 
 set nocompatible          " be iMproved, required
-filetype on               " required
-colorscheme peachpuff
+filetype off               " required
+colorscheme delek
+"colorscheme torte         " is also good
 
 set grepprg=ack\ -k
 
+"execute pathogen#infect()
+"so ~/.vim/plugins.vim
+
 "" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+
 "" alternatively, pass a path where Vundle should install plugins
 ""call vundle#begin('~/some/path/here')
 "
 "" let Vundle manage Vundle, required
 "Plugin 'VundleVim/Vundle.vim'
+"
+"Plugin 'l04m33/vlime', {'rtp': 'vim/'}
+"Plugin 'paredit.vim'
+"
+"Plugin 'vim-airline/vim-airline'
 "
 "Plugin 'tComment'
 "
@@ -50,9 +63,11 @@ set grepprg=ack\ -k
 "" different version somewhere else.
 ""Plugin 'ascenator/L9', {'name': 'newL9'}
 "
+" Plugin 'https://gitlab.com/n9n/vim-apl'
 "" All of your Plugins must be added before the following line
-"call vundle#end()            " required
-"filetype plugin indent on    " required
+" call vundle#end()            " required
+filetype plugin indent on    " required
+
 "" To ignore plugin indent changes, instead use:
 ""filetype plugin on
 ""
@@ -108,15 +123,22 @@ nnoremap <Leader>ss :call SplitPipeSplit()<CR>
 nnoremap <Leader>cs :call ClipboardSplitPipeSplit()<CR>
 nnoremap <Leader>fs :call FilePipeSplit()<CR>
 
+" Start line with upside-down question mark, end with a regular, and start
+" insert mode between them
+nnoremap <Leader>uq A<Space>?<esc>0i¿ 
+
 " Split single line on pipe
 nnoremap <Leader>sp :%s/\|/\r/g<CR>
 
 " quit all buffers without saving
-nnoremap <Leader>qa :qa!<CR>
+" nnoremap <Leader>qa :qa!<CR>
 nnoremap <localleader>q :qa!<CR>
 
 " Replace all spaces with underscores on the current line and yank to clipboard
-nnoremap <Leader>su :s/ /_/g<cr>lb"+yW
+nnoremap <Leader>stu :s/ /_/g<cr>lb"+yW
+
+" Replace all spaces with dashes on the current line and yank to clipboard
+nnoremap <Leader>std :s/ /-/g<cr>lb"+yW
 
 " Replace tabs with 4 spaces
 nnoremap <Leader>rts :%s/       /    /g<CR>
@@ -164,7 +186,7 @@ nnoremap <leader>( viw<esc>a)<esc>bi(<esc>lel
 "vnoremap <leader><c-=> `>a<esc>`<bi`<esc>lel
 
 " jk in insert mode = <Esc>
-inoremap jk <esc>
+inoremap jj <esc>
 
 " when expandtab is on, use shift-Tab to insert tab in insert mode
 inoremap <S-Tab> <C-V><Tab>
@@ -210,14 +232,61 @@ set foldmethod=indent
 set foldlevel=99
 
 " Show docstrings for folds
-let g:SimpylFold_docstring_preview=1
+"let g:SimpylFold_docstring_preview=1
 
-hi Search cterm=NONE ctermfg=grey ctermbg=blue
+"hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 " to use colors defined in the colorscheme
-highlight link Flake8_Error      Error
-highlight link Flake8_Warning    WarningMsg
-highlight link Flake8_Complexity WarningMsg
-highlight link Flake8_Naming     WarningMsg
-highlight link Flake8_PyFlake    WarningMsg
+"highlight link Flake8_Error      Error
+"highlight link Flake8_Warning    WarningMsg
+"highlight link Flake8_Complexity WarningMsg
+"highlight link Flake8_Naming     WarningMsg
+"highlight link Flake8_PyFlake    WarningMsg
 
+" netrw setup
+nnoremap <leader>x :Vexplore<cr>
+"let g:netrw_banner = 0
+"let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+let g:netrw_winsize = 25
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
+" Powerline setup
+let g:airline_powerline_fonts = 1
+
+" vlime vars
+" let g:vlime_compiler_policy = {"DEBUG": 3}
+
+" Edit the macro stored in register q
+nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
+" create a dash separator line
+nnoremap <leader>l- o<esc>16i-<esc>j
+nnoremap <leader>ld o<esc>16i-<esc>j
+" create a equal separator line
+nnoremap <leader>l= o<esc>16i=<esc>j
+nnoremap <leader>le o<esc>16i=<esc>j
+
+" create a line of hashes
+nnoremap <leader>lc o<esc>32i#<esc>j
+" create a line of slashes
+nnoremap <leader>lc o<esc>32i/<esc>j
+
+" these are the originals
+" nnoremap <leader>l- 16i-<esc>A<cr><esc>
+" nnoremap <leader>ld 16i-<esc>A<cr><esc>
+" nnoremap <leader>l= 16i=<esc>A<cr><esc>
+" nnoremap <leader>le 16i=<esc>A<cr><esc>
+
+" fzf mapping
+nnoremap <C-p> :<C-u>FZF<cr>
+" slimv stuff
+" set runtimepath^=~/.vim/bundle/slimv
+" let g:lisp_rainbow=1
+
+" vim-apl stuff
+" set runtimepath^=~/.vim/bundle/vim-apl
