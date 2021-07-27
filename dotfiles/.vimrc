@@ -23,50 +23,25 @@ set grepprg=ack\ -k
 " set paste
 "set pastetoggle=<F2>
 
-
+" set Space as leader
 let mapleader=" "
+" set backslash as localleader
 let maplocalleader="\\"
 
+" Edit the macro stored in register q
+nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 
-""" The following functions and remaps will split the first 2 lines of a
-" pipe-delimited file into side by side splits for comparison of 
-" header fields with data fields
-"
-" in .bash_profile, add this:
-" ccc()
-"{
-"  head -2 $1 | vim -c ":call SplitPipeSplit()" -
-"}
-" to be able to do something like this: ccc /path/to/file.csv
+" create a dash separator line
+nnoremap <leader>l- o<esc>16i-<esc>j
+nnoremap <leader>ld o<esc>16i-<esc>j
+" create a equal separator line
+nnoremap <leader>l= o<esc>16i=<esc>j
+nnoremap <leader>le o<esc>16i=<esc>j
 
-" splits 2 pipe-delimited lines in one buffer into side by side windows
-function! SplitPipeSplit()
-    normal Gdd
-    execute ":%s/\|/\r/g"
-    execute ":vertical botright split " . localtime()
-    execute ":wincmd k"
-    normal Pjdd
-    execute ":%s/\|/\r/g"
-    normal 1G
-    execute ":wincmd h"
-    normal 1G
-endfunction
-
-" pastes 2 pipe-delimited lines from system clipboard into side by side windows and splits
-function! ClipboardSplitPipeSplit()
-    normal "+P
-    execute SplitPipeSplit()
-endfunction
-
-" splits the first 2 pipe-delimited lines of the current buffer into side by side windows for comparison
-function! FilePipeSplit()
-    normal 3GdG
-    execute SplitPipeSplit()
-endfunction
-
-nnoremap <Leader>ss :call SplitPipeSplit()<CR>
-nnoremap <Leader>cs :call ClipboardSplitPipeSplit()<CR>
-nnoremap <Leader>fs :call FilePipeSplit()<CR>
+" create a line of hashes
+nnoremap <leader>lc o<esc>32i#<esc>j
+" create a line of slashes
+nnoremap <leader>lc o<esc>32i/<esc>j
 
 " Split single line on pipe
 nnoremap <Leader>sp :%s/\|/\r/g<CR>
@@ -158,6 +133,47 @@ set splitright
 nnoremap <leader>tt :vert term<cr>
 "tnoremap <ESC><ESC> <C-\><C-N>
 
+
+""" The following functions and remaps will split the first 2 lines of a
+" pipe-delimited file into side by side splits for comparison of 
+" header fields with data fields
+"
+" in .bash_profile, add this:
+" ccc()
+"{
+"  head -2 $1 | vim -c ":call SplitPipeSplit()" -
+"}
+" to be able to do something like this: ccc /path/to/file.csv
+
+" splits 2 pipe-delimited lines in one buffer into side by side windows
+function! SplitPipeSplit()
+    normal Gdd
+    execute ":%s/\|/\r/g"
+    execute ":vertical botright split " . localtime()
+    execute ":wincmd k"
+    normal Pjdd
+    execute ":%s/\|/\r/g"
+    normal 1G
+    execute ":wincmd h"
+    normal 1G
+endfunction
+
+" pastes 2 pipe-delimited lines from system clipboard into side by side windows and splits
+function! ClipboardSplitPipeSplit()
+    normal "+P
+    execute SplitPipeSplit()
+endfunction
+
+" splits the first 2 pipe-delimited lines of the current buffer into side by side windows for comparison
+function! FilePipeSplit()
+    normal 3GdG
+    execute SplitPipeSplit()
+endfunction
+
+nnoremap <Leader>ss :call SplitPipeSplit()<CR>
+nnoremap <Leader>cs :call ClipboardSplitPipeSplit()<CR>
+nnoremap <Leader>fs :call FilePipeSplit()<CR>
+
 " load templates
 au BufNewFile * silent! 0r ~/.vim/templates/%:e.tpl
 " but it doesn't work
@@ -176,9 +192,6 @@ augroup END
 set foldmethod=indent
 set foldlevel=99
 
-" Show docstrings for folds
-"let g:SimpylFold_docstring_preview=1
-
 "hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
 " netrw setup
@@ -195,21 +208,6 @@ let g:netrw_winsize = 25
 
 " Powerline setup
 "let g:airline_powerline_fonts = 1
-
-" Edit the macro stored in register q
-nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
-
-" create a dash separator line
-nnoremap <leader>l- o<esc>16i-<esc>j
-nnoremap <leader>ld o<esc>16i-<esc>j
-" create a equal separator line
-nnoremap <leader>l= o<esc>16i=<esc>j
-nnoremap <leader>le o<esc>16i=<esc>j
-
-" create a line of hashes
-nnoremap <leader>lc o<esc>32i#<esc>j
-" create a line of slashes
-nnoremap <leader>lc o<esc>32i/<esc>j
 
 " slimv stuff
 set runtimepath^=~/.vim/bundle/slimv
