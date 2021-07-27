@@ -1,11 +1,6 @@
-" set paste
-set pastetoggle=<F2>
 syn on
-set number
-"set relativenumber
 
-" shut up!
-set belloff=all
+set number
 
 set tabstop=4
 set shiftwidth=4
@@ -18,70 +13,20 @@ filetype off               " required
 colorscheme delek
 "colorscheme torte         " is also good
 
+" shut up! I hate visual bells.
+set belloff=all
+
+" ack: https://beyondgrep.com/
 set grepprg=ack\ -k
 
-"execute pathogen#infect()
-"so ~/.vim/plugins.vim
+" Cygwin/Microsoft stuff
+" set paste
+"set pastetoggle=<F2>
 
-"" set the runtime path to include Vundle and initialize
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-
-"" alternatively, pass a path where Vundle should install plugins
-""call vundle#begin('~/some/path/here')
-"
-"" let Vundle manage Vundle, required
-"Plugin 'VundleVim/Vundle.vim'
-"
-"Plugin 'l04m33/vlime', {'rtp': 'vim/'}
-"Plugin 'paredit.vim'
-"
-"Plugin 'vim-airline/vim-airline'
-"
-"Plugin 'tComment'
-"
-"Plugin 'wellle/targets.vim'
-"
-"Plugin 'tmhedberg/SimpylFold'
-"
-"Plugin 'nvie/vim-flake8'
-"
-"" The following are examples of different formats supported.
-"" Keep Plugin commands between vundle#begin/end.
-"" plugin on GitHub repo
-""Plugin 'tpope/vim-fugitive'
-"" plugin from http://vim-scripts.org/vim/scripts.html
-""Plugin 'L9'
-"" Git plugin not hosted on GitHub
-""Plugin 'git://git.wincent.com/command-t.git'
-"" git repos on your local machine (i.e. when working on your own plugin)
-""Plugin 'file:///home/gmarik/path/to/plugin'
-"" The sparkup vim script is in a subdirectory of this repo called vim.
-"" Pass the path to set the runtimepath properly.
-""Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-"" Install L9 and avoid a Naming conflict if you've already installed a
-"" different version somewhere else.
-""Plugin 'ascenator/L9', {'name': 'newL9'}
-"
-" Plugin 'https://gitlab.com/n9n/vim-apl'
-"" All of your Plugins must be added before the following line
-" call vundle#end()            " required
-filetype plugin indent on    " required
-
-"" To ignore plugin indent changes, instead use:
-""filetype plugin on
-""
-"" Brief help
-"" :PluginList       - lists configured plugins
-"" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-"" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-"" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-""
-"" see :h vundle for more details or wiki for FAQ
-"" Put your non-Plugin stuff after this line
 
 let mapleader=" "
 let maplocalleader="\\"
+
 
 """ The following functions and remaps will split the first 2 lines of a
 " pipe-delimited file into side by side splits for comparison of 
@@ -123,16 +68,16 @@ nnoremap <Leader>ss :call SplitPipeSplit()<CR>
 nnoremap <Leader>cs :call ClipboardSplitPipeSplit()<CR>
 nnoremap <Leader>fs :call FilePipeSplit()<CR>
 
-" Start line with upside-down question mark, end with a regular, and start
-" insert mode between them
-nnoremap <Leader>uq A<Space>?<esc>0i¿ 
-
 " Split single line on pipe
 nnoremap <Leader>sp :%s/\|/\r/g<CR>
 
 " quit all buffers without saving
 " nnoremap <Leader>qa :qa!<CR>
 nnoremap <localleader>q :qa!<CR>
+
+" Start line with upside-down question mark, end with a regular, and start
+" insert mode between them
+nnoremap <Leader>uq A<Space>?<esc>0i¿ 
 
 " Replace all spaces with underscores on the current line and yank to clipboard
 nnoremap <Leader>stu :s/ /_/g<cr>lb"+yW
@@ -236,13 +181,6 @@ set foldlevel=99
 
 "hi Search cterm=NONE ctermfg=grey ctermbg=blue
 
-" to use colors defined in the colorscheme
-"highlight link Flake8_Error      Error
-"highlight link Flake8_Warning    WarningMsg
-"highlight link Flake8_Complexity WarningMsg
-"highlight link Flake8_Naming     WarningMsg
-"highlight link Flake8_PyFlake    WarningMsg
-
 " netrw setup
 nnoremap <leader>x :Vexplore<cr>
 "let g:netrw_banner = 0
@@ -256,10 +194,7 @@ let g:netrw_winsize = 25
 "augroup END
 
 " Powerline setup
-let g:airline_powerline_fonts = 1
-
-" vlime vars
-" let g:vlime_compiler_policy = {"DEBUG": 3}
+"let g:airline_powerline_fonts = 1
 
 " Edit the macro stored in register q
 nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
@@ -276,17 +211,6 @@ nnoremap <leader>lc o<esc>32i#<esc>j
 " create a line of slashes
 nnoremap <leader>lc o<esc>32i/<esc>j
 
-" these are the originals
-" nnoremap <leader>l- 16i-<esc>A<cr><esc>
-" nnoremap <leader>ld 16i-<esc>A<cr><esc>
-" nnoremap <leader>l= 16i=<esc>A<cr><esc>
-" nnoremap <leader>le 16i=<esc>A<cr><esc>
-
-" fzf mapping
-nnoremap <C-p> :<C-u>FZF<cr>
 " slimv stuff
-" set runtimepath^=~/.vim/bundle/slimv
-" let g:lisp_rainbow=1
-
-" vim-apl stuff
-" set runtimepath^=~/.vim/bundle/vim-apl
+set runtimepath^=~/.vim/bundle/slimv
+let g:lisp_rainbow=1

@@ -1,6 +1,3 @@
-Work in progress .vimrc.  For first time use, you need to install vundle:
+Work in progress .vimrc.
 
-Vundle: https://github.com/VundleVim/Vundle.vim
-
-Install vundle: 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+Once upon a time it had a lot of plugins, but I never used them.  Now there's only slimv for Common Lisp.
